@@ -173,7 +173,6 @@ const app = {
         
         nextBtns.forEach(nextBtn => {
             nextBtn.onclick = function() {
-                console.log(1);
                 if(app.isRandom){
                     app.randomSong()
                 }else {
@@ -198,7 +197,6 @@ const app = {
         randomBtn.onclick = function(){
             app.isRandom = !app.isRandom
             randomBtn.classList.toggle('active', app.isRandom)
-            
         }
 
         repeatBtn.onclick = function () {
@@ -210,7 +208,7 @@ const app = {
             if(app.isRepeat){
                 audio.play()
             }else{
-                app.nextSong()
+                $('.dashboard-next-btn').click()
             }
         }
         playList.onclick = function(e){
