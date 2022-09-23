@@ -26,6 +26,14 @@ html {
     display: none;
 }
 
+.active {
+    color: #000;
+}
+
+.wrapper.playing .island-popup{
+    width: 25rem;
+    height: 3rem;
+}
 .wrapper.playing .icon-pause {
     display: inline-block;
 }
@@ -34,6 +42,10 @@ html {
     display: none;
 }
 
+.island-short-title {
+    color: #fff;
+    display: none;
+}
 
 .inner {
     position: relative;
@@ -63,14 +75,22 @@ html {
     justify-content: center;
     align-items: center;
 }
-/* 
-.island-popup:hover {
+
+.wrapper .island-popup:hover {
     width: 26rem;
     height: 13rem;
 }
 .island-popup:hover .island-inner {
     display: flex;
-} */
+}
+
+.island-popup:hover .island-short-title {
+    display: none;
+}
+
+.dp-block {
+    display: flex;
+}
 
 .island-inner {
     width: 100%;
@@ -87,9 +107,7 @@ html {
     font-size: 1.2rem;
     gap: 1rem;
 }
-.island-header .title {
 
-}
 .island-thumb > img {
     width: 4rem;
     height: 4rem;
@@ -159,7 +177,6 @@ html {
 }
 
 .dashboard .title {
-    text-align: center;
     color: #fff;
 }
 
