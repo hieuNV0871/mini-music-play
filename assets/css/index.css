@@ -1,13 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&display=swap');
 
+
+:root {
+    --borderRadius: 4.5rem;
+    --primary: #1D1D1E;
+}
+
 * {
     font-family: 'Poppins', sans-serif;
     margin: 0; padding: 0;
     box-sizing: border-box;
     text-decoration: none;
     outline: none; border: none;
-    /* transition: all .3s linear; */
+    transition: all .3s linear;
     scroll-behavior: smooth;
+    text-transform: capitalize;
 
 }
 
@@ -15,93 +22,99 @@ html {
     font-size: 62.5%;
 }
 
-.wrapper {
+.player {
     display: flex;
     justify-content: center;
     align-items: center;
     background: #fff;
     min-height: 100vh;
 }
-.wrapper .icon-pause {
-    display: none;
-}
 
-.active {
-    color: #000;
-}
 
-.wrapper.playing .island-popup{
+.player.playing .island-popup{
     width: 25rem;
     height: 3rem;
 }
-.wrapper.playing .icon-pause {
+
+.player.playing .pause-icon {
     display: inline-block;
 }
 
-.wrapper.playing .icon-play {
+.player.playing .play-icon {
     display: none;
 }
 
-.island-short-title {
-    color: #fff;
-    display: none;
+.player .active {
+    color: var(--primary);
 }
 
 .inner {
     position: relative;
-
-    background-color: #ccc;
+    background-color: #BEBEBE;
     width: 30rem;
     height: 60rem;
     padding: 1rem;
-    border-radius: 5rem;
+    border-radius: var(--borderRadius);
     display: flex;
     flex-flow: column;
-    border: 1rem solid #000;
+    border: .9rem solid var(--primary);
 }
+
+.inner .pause-icon {
+    display: none;
+}
+
+
+
+/* dynamic island */
 
 .island-popup {
     z-index: 999999999;
     margin: 0 auto;
-    width: 9rem;
-    /* width: 26rem; */
+    width: 10rem;
     height: 2.5rem;
-    /* height: 13rem; */
-    background-color: #000;
-    border-radius: 2rem;
-    border-radius: 4rem;
+    background-color: var(--primary);
+    border-radius: 3.5rem;
     transition: .5s ease-in-out;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.wrapper .island-popup:hover {
-    width: 26rem;
-    height: 13rem;
+.island-title {
+    transition: all .5s ease-in-out;
+    color: #fff;
+    opacity: 0;
 }
+
+.player .island-popup:hover {
+    width: 100%;
+    height: 14rem;
+    transition: none;
+}
+
 .island-popup:hover .island-inner {
     display: flex;
 }
 
-.island-popup:hover .island-short-title {
+.island-popup:hover .island-title {
     display: none;
+
 }
 
 .dp-block {
-    display: flex;
+   opacity: 1;
 }
 
 .island-inner {
     width: 100%;
     height: 100%;
-    /* display: flex; */
     display: none;
     flex-flow: column;
     color: #fff;
     padding: 1.5rem;
-
 }
+
 .island-header {
     display: flex;
     font-size: 1.2rem;
@@ -119,16 +132,17 @@ html {
     flex-flow: column;
     align-items: center;
 }
-.btn-control i {
+
+.control-btn i {
     cursor: pointer;
 }
 
-.island-progress, .progress {
+.progress {
     margin: 1rem 0;
     width: 77%;
     -webkit-appearance: none;
     height: .4rem;
-    background: #d3d3d3;
+    background: #666;
     outline: none;
     opacity: 0.7;
     -webkit-transition: 0.2s;
@@ -136,31 +150,34 @@ html {
     cursor: pointer;
 }
 
-.island-progress::-webkit-slider-thumb, .progress::-webkit-slider-thumb {
+.progress::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
     width: 1rem;
     height: .4rem;
-    background-color: red;
+    background-color: #fff;
     cursor: pointer;
 }
 
-.btn-control {
+.control-btn {
     display: flex;
     gap: 5rem;
     font-size: 2rem;
     color: #fff;
 }
-.btn-toggle-play {
+.toggle-play-btn {
     position: relative;
 }
 
-.btn-toggle-play > i {
+.toggle-play-btn > i {
     right: 50%;
     top: 50%;
     position: absolute;
     transform: translate(50%,-50%);
 }
+
+
+/* dashboard */
 
 
 .dashboard {
@@ -172,32 +189,32 @@ html {
     padding: 0 .8rem;
     display: flex;
     flex-flow: column;
-    /* justify-content: center; */
     align-items: center;
 }
 
-.dashboard .title {
+.dashboard .dashboard-title {
     color: #fff;
 }
 
-.cd {
+.dashboard-image {
     display: flex;
     margin: 2rem auto;
     width: 100%;
     padding: 0 1rem;
 }
-.cd > img {
+.dashboard-image > img {
     width: 100%;
     height: 20rem;
     border-radius: 1rem;
 }
 
-.dashboard .btn-control {
+.dashboard .control-btn {
     margin: 1rem 0;
     gap: 4rem;
 }
 
 .song {
+    max-width: 25rem;
     display: flex;
     align-items: center;
     padding: 0 1.2rem;
@@ -205,10 +222,13 @@ html {
     background-color: #fff;
     border-radius: .5rem;
     box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    color: var(--primary);
 }
 
 .song.active {
-    background-color: #ccc;
+    background-color: var(--primary);
+    color: #fff !important;
 }
 
 .song .island-thumb {
@@ -221,21 +241,23 @@ html {
 
 .song .body {
     flex: 1;
+    flex-shrink: 0;
 }
 
-.song .title {
+.title {
+    width: 15rem;
     font-size: 1.5rem;
-    color: #000;
+    overflow: hidden;
+    white-space: nowrap; 
+    text-overflow: ellipsis;
 }
 
 .song .author {
-    font-size: 1rem;
-    color: #999;
+    font-size: 1.2rem;
 }
 
 .song .option {
-    padding: 16px 8px;
-    color: #999;
+    padding: 1.6rem .8rem;
     font-size: 18px;
     cursor: pointer;
 }

@@ -3,18 +3,18 @@ const $$  = document.querySelectorAll.bind(document)
 
 const islandPopup = $('.island-popup')
 const audio = $('#audio')
-const wrapper = $('.wrapper')
-const title = $('header .title')
-const cd = $('.cd img')
+const player = $('.player')
+const dashboardTitle = $('.dashboard-title')
+const dashboardImage = $('.dashboard-image')
 const playList = $('.playlist')
 
 // control btn 
 const progress = $$('.progress')
-const togglePlay = $$('.btn-toggle-play')
-const nextBtn = $$('.btn-next')
-const prevBtn= $$('.btn-prev')
-const randomBtn = $('.btn-random')
-const repeatBtn = $('.btn-repeat')
+const togglePlays = $$('.toggle-play-btn')
+const nextBtns = $$('.next-btn')
+const prevBtns= $$('.prev-btn')
+const randomBtn = $('.random-btn')
+const repeatBtn = $('.repeat-btn')
 
 
 
@@ -26,28 +26,64 @@ const app = {
     currentIndex: 0,
     songs : [
         {
-            name: 'Hơn cả mây trời',
-            singer: 'Như việt',
-            path: './assets/musics/HonCaMayTroi.mp3',
+            name: 'Ai đợi mình được mãi',
+            singer: 'Thanh Hưng',
+            path: './assets/musics/AiDoiMinhDuocMai.mp3',
             image: './assets/imgs/anh1.jpg'
         },
         {
-            name: 'duyen suyen so so',
-            singer: 'Jack',
-            path: './assets/musics/DuyenDuyenSoSo.mp3',
+            name: 'Ấn nút nhớ thả giấc mơ',
+            singer: 'Sơn Tùng MT-P',
+            path: './assets/musics/AnNutNhoThaGiacMo.mp3',
             image: './assets/imgs/anh2.jpg'
+        },
+        {
+            name: 'Chuyện đôi ta',
+            singer: 'Hiếu',
+            path: './assets/musics/ChuyenDoiTa.mp3',
+            image: './assets/imgs/anh3.jpg'
+        },
+        {
+            name: 'Forget me now',
+            singer: 'Hiếu',
+            path: './assets/musics/ForgetMeNow.mp3',
+            image: './assets/imgs/anh4.jpg'
+        },
+        {
+            name: 'Hoa Điêu Thuyền',
+            singer: 'Hiếu',
+            path: './assets/musics/HoaDieuThuyen.mp3',
+            image: './assets/imgs/anh5.jpg'
         },
         {
             name: 'Hơn cả mây trời',
-            singer: 'Như việt',
+            singer: 'Như Việt',
             path: './assets/musics/HonCaMayTroi.mp3',
-            image: './assets/imgs/anh1.jpg'
+            image: './assets/imgs/anh6.jpg'
         },
         {
-            name: 'duyen suyen so so',
-            singer: 'Jack',
-            path: './assets/musics/DuyenDuyenSoSo.mp3',
-            image: './assets/imgs/anh2.jpg'
+            name: 'Lạ Lùng',
+            singer: 'Vũ',
+            path: './assets/musics/LaLung.mp3',
+            image: './assets/imgs/anh7.jpg'
+        },
+        {
+            name: 'Sao mình chưa nắm tay',
+            singer: 'Hiếu',
+            path: './assets/musics/SaoMinhChuaNamTayNhau.mp3',
+            image: './assets/imgs/anh8.jpg'
+        },
+        {
+            name: 'Thế giới mất đi Một người',
+            singer: 'Tăng phúc',
+            path: './assets/musics/TheGioiMatDiMotNguoi.mp3',
+            image: './assets/imgs/anh9.jpg'
+        },
+        {
+            name: 'Vấn Vương',
+            singer: 'Hiếu',
+            path: './assets/musics/VanVuong.mp3',
+            image: './assets/imgs/anh10.jpg'
         },
     ],
 
@@ -60,7 +96,7 @@ const app = {
                                 <img src="${song.image}" alt="">
                             </div>
                             <div class="body">
-                                <h3 class="title">${song.name}</h3>
+                                <h3 class="title" title="${song.name}">${song.name}</h3>
                                 <p class="author">${song.singer}</p>
                             </div>
                             <div class="option">
@@ -97,8 +133,8 @@ const app = {
     },
 
     handleEvent: function() {
-        togglePlay.forEach(element => {
-            element.onclick = function() {
+        togglePlays.forEach(togglePlay => {
+            togglePlay.onclick = function() {
 
                 if(app.isPlaying){
                     audio.pause()
@@ -111,30 +147,32 @@ const app = {
         
         audio.onplay = function (){
             app.isPlaying = true
-            wrapper.classList.add('playing')
-            $('.island-short-title').classList.add('dp-block')
+            player.classList.add('playing')
+            $('.island-title').classList.add('dp-block')
         }
         audio.onpause = function (){
             app.isPlaying = false
-            wrapper.classList.remove('playing')
-            $('.island-short-title').classList.remove('dp-block')
+            player.classList.remove('playing')
+            $('.island-title').classList.remove('dp-block')
 
         }
         audio.ontimeupdate = function (){
             if(audio.duration){
                const progressPer =  Math.floor(audio.currentTime / audio.duration * 100)
-               progress.value = progressPer
+               progress.forEach(progress=>{
+                progress.value = progressPer
+               })
             }
         }
-        progress.forEach(element => {
-            element.onchange = function(e){
+        progress.forEach(progress => {
+            progress.onchange = function(e){
                 const seekTime  = Math.floor(e.target.value / 100 * audio.duration)
                 audio.currentTime = seekTime
             }
         })
         
-        nextBtn.forEach(element => {
-            element.onclick = function() {
+        nextBtns.forEach(nextBtn => {
+            nextBtn.onclick = function() {
                 console.log(1);
                 if(app.isRandom){
                     app.randomSong()
@@ -145,8 +183,8 @@ const app = {
             }
         });
         
-        prevBtn.forEach(element=>{
-            element.onclick = function() {
+        prevBtns.forEach(prevBtn=>{
+            prevBtn.onclick = function() {
                 if(app.isRandom){
                     app.randomSong()
                 }else{
@@ -172,7 +210,7 @@ const app = {
             if(app.isRepeat){
                 audio.play()
             }else{
-                nextBtn.click()
+                app.nextSong()
             }
         }
         playList.onclick = function(e){
@@ -234,8 +272,8 @@ const app = {
     },
 
     loadCurrentSong: function(){
-        title.textContent = this.currentSong.name
-        cd.src = this.currentSong.image
+        dashboardTitle.textContent = this.currentSong.name
+        dashboardImage.src = this.currentSong.image
         audio.src = this.currentSong.path
     },
     start: function() {
