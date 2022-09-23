@@ -5,7 +5,7 @@ const islandPopup = $('.island-popup')
 const audio = $('#audio')
 const player = $('.player')
 const dashboardTitle = $('.dashboard-title')
-const dashboardImage = $('.dashboard-image')
+const dashboardImage = $('.dashboard-image img')
 const playList = $('.playlist')
 
 // control btn 
